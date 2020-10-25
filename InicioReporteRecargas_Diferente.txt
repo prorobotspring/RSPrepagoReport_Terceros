@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Recargas Web</title>
+</head>
+<body>
+<table style="font-family: Arial; font-size: 12px;" width="100%">
+	<tr>
+		<td style="font-size: 14px;">Resultado de las Recargas otras Instituciones (INTERCABLE) realizadas hasta el día ${fecha}</td>
+	</tr>
+	<tr>
+		<td><br />
+		<table border="1" align="center" cellpadding="1" cellspacing="1"
+			style="border-collapse: collapse;" width="500px">
+			<tr>
+				<th colspan="5" bgcolor="#D50032" style="color: White">Recargas a InterCable</th>
+			</tr>
+			<tr style="color: White">
+				<th bgcolor="#EEEEEE"></th>
+				<th bgcolor="#D50032" width="60px">Abonado</th>
+				<th bgcolor="#D50032" width="60px">Tarjetas</th>
+				<th bgcolor="#D50032" width="60px">% Tarjetas</th>
+			</tr>
+			

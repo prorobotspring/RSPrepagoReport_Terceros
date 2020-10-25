@@ -1,0 +1,26 @@
+			<tr bgcolor="White">
+				<td><b>Total general</b></td>
+				<td align="right" width="60px"><b>${TotalGSM}</b></td>
+				<!--<td align="right" width="60px"><b>${PorcentajeTotalGSM}%</b></td>-->
+				<td align="right" width="60px"><b>${TotalTarjeta}</b></td>
+				<td align="right" width="60px"><b>${PorcentajeTotalTar}%</b></td>
+			</tr>		
+		</table>
+		<br />
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<table border="1" align="center" cellpadding="1" cellspacing="1"
+			style="border-collapse: collapse;" width="500px">
+			<tr>
+				<th colspan="5" bgcolor="#D50032" style="color: White">Montos recargados</th>
+			</tr>
+			<tr style="color: White">
+				<th bgcolor="#EEEEEE"></th>
+				<th bgcolor="#D50032" width="60px">Tarjetas</th>
+				<!--<th bgcolor="#D50032" width="60px">%</th>-->
+				<th bgcolor="#D50032" width="60px">Monto</th>
+				<!--<th bgcolor="#D50032" width="60px">%</th>-->
+				<th bgcolor="#D50032" width="60px">% Monto</th>
+			</tr>

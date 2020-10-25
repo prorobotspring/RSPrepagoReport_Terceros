@@ -1,0 +1,5 @@
+			<tr bgcolor="White">
+				<td width="390px"><b>${Categoria}</b></td>
+				<td align="right" width="60px"><b>${Cantidad}</b></td>
+				<td align="right" width="60px"><b>${Porcentaje}%</b></td>
+			</tr>

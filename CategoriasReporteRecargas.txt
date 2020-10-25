@@ -1,0 +1,17 @@
+		</table>
+		<br />
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<table border="1" align="center" cellpadding="1" cellspacing="1"
+			style="border-collapse: collapse;" width="500px">
+			<tr>
+				<th colspan="3" bgcolor="#D50032" style="color: White">Categorías
+				de recargas fallidas</th>
+			</tr>
+			<tr style="color: White">
+				<th bgcolor="#EEEEEE"></th>
+				<th bgcolor="#D50032" width="60px">Total</th>
+				<th bgcolor="#D50032" width="60px">%</th>
+			</tr>

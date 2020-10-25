@@ -1,0 +1,6 @@
+			<tr bgcolor="${ColorRegistro}">
+				<td width="420px">${Categoria}</td>
+				<td align="right" width="60px">${Tarjetas}</td>
+				<td align="right" width="60px">${Cantidad}</td>
+				<td align="right" width="60px">${PorcentajeC}%</td>
+			</tr>

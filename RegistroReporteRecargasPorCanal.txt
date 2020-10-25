@@ -1,0 +1,18 @@
+			<tr bgcolor="White">
+				<td><b>${TotalPorCanal}</b></td>
+				<td align="right" width="60px"><b>${SubtotalGSM}</b></td>
+				<td align="right" width="60px"><b>${SubtotalTarjeta}</b></td>
+				<td align="right" width="60px"><b>${PorcentajeSubtotalTar}%</b></td>
+			</tr>
+			<tr bgcolor="#DCDCDC">
+				<td>${ExitoPorCanal}</td>
+				<td align="right" width="60px">${ExitoGSM}</td>
+				<td align="right" width="60px">${ExitoTarjeta}</td>
+				<td align="right" width="60px">${PorcentajeExTar}%</td>
+			</tr>
+			<tr bgcolor="$#EEEEEE">
+				<td>${FallaPorCanal}</td>
+				<td align="right" width="60px">${FallaGSM}</td>
+				<td align="right" width="60px">${FallaTarjeta}</td>
+				<td align="right" width="60px">${PorcentajeFaTar}%</td>
+			</tr>

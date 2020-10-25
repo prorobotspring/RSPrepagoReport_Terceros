@@ -1,0 +1,15 @@
+			<tr bgcolor="White">
+				<td ><b>${Categoria}</b></td>
+				<td align="right" width="60px"><b>${Cantidad}</b></td>
+				<td align="right" width="60px"><b>${Porcentaje}%</b></td>
+			</tr>
+			<tr bgcolor="#EEEEEE">
+				<td>Bloqueos por monto de recarga excedido (Bs. ${montoRecarga})</td>
+				<td align="right" width="60px">${BloqueoMonto}</td>
+				<td align="right" width="60px">${PorcentajeBM}%</td>
+			</tr>
+			<tr bgcolor="#DCDCDC">
+				<td>Bloqueos por cantidad de recargas fallidas (${fallas})</td>
+				<td align="right" width="60px">${BloqueoFalla}</td>
+				<td align="right" width="60px">${PorcentajeBF}%</td>
+			</tr>

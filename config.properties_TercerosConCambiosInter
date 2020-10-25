@@ -1,0 +1,104 @@
+# Archivo de configuracion de la aplicacion Manejador Balances RTBS
+
+# Servidor Weblogic
+application.initial_context_factory=weblogic.jndi.WLInitialContextFactory
+
+# IP y Puerto servidor weblogic
+application.provider_url=t3://10.27.32.75:7053
+
+
+# DATASOURCE
+application.web.recharge.report.datasource=RecargaPrepagoWeb.jdbc.DataSource_Prod 
+
+#
+application.web.recharge.report.mailHost=10.20.20.181
+
+#
+application.web.recharge.disponibleRecargasOpcion=False
+#
+#application.web.recharge.report.to=Diego_Leal@digitel.com.ve;Carlos_Perdigon@digitel.com.ve
+#application.web.recharge.report.to=Madelyx_Brianto@digitel.com.ve;Carlos_Perdigon@digitel.com.ve
+#application.web.recharge.report.to=Madelyx_Brianto@digitel.com.ve;dafna_brandt@digitel.com.ve;Carlos_Perdigon@digitel.com.ve
+#application.web.recharge.report.to=rafael_rey@digitel.com.ve;juan_flores@digitel.com.ve;gerardo_cano@digitel.com.ve;josemanuel_riocabo@digitel.com.ve;wendy_dorta@digitel.com.ve;carlos_perdigon@digitel.com.ve;pedro_cordero@digitel.com.ve;JoseMaria_DeViana@digitel.com.ve;carmela_famiglietti@digitel.com.ve
+application.web.recharge.report.to=CarlosEduardo_Morin@digitel.com.ve;Carlos_Perdigon@digitel.com.ve
+
+#
+#application.web.recharge.report.from=Proceso_Recargas
+application.web.recharge.report.from=INDICADORES_OPERATIVOS@digitel.com.ve
+
+#
+#application.web.recharge.report.subject=Resultado de las recargas físicas, realizadas durante el día
+application.web.recharge.report.subject=GIS CAI Reporte de recargas físicas
+
+#Query del servicio de Inter incorporados en Terceros
+application.web.recharge.report.query.RecargasExitosasTotalOpcion=select   COUNT(a.gsm) as CANTIDAD from     recarga3g.web_rech_transaction a, tbl_rechargeoption b, tbl_rechoption_nonvouchrech r where    a.ERROR_CODE = '0'   and    a.AMOUNT_CHARGE>0 and    a.rechvalue = r.rechvalue  and    r.RECHOPTION = b.RECHOPTION and    DATE_TIME between to_date(to_char(sysdate-1,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate-1,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and    RT_DATA_PARTITION_KEY between to_date(to_char(sysdate-1,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate-1,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and AMOUNT_CHARGE in (select FACE_VALUE from card_category) and ID_INSTITUTION='910'
+application.web.recharge.report.query.RecargasFallidasTotalOpcion=select COUNT(a.gsm) as CANTIDAD from     recarga3g.web_rech_transaction a, tbl_rechargeoption b, tbl_rechoption_nonvouchrech r where a.rechvalue = r.rechvalue and    r.RECHOPTION = b.RECHOPTION AND ERROR_CODE <> '0' and DATE_TIME between to_date(to_char(sysdate-1,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate-1,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and RT_DATA_PARTITION_KEY between to_date(to_char(sysdate-1,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate-1,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and ID_INSTITUTION='910'
+application.web.recharge.report.query.RecargasExitosasTotalPorCanalOpcion=select  COUNT(gsm) as CANTIDAD from    web_rech_transaction a, tbl_rechargeoption b, tbl_rechoption_nonvouchrech r where   a.channel=? and   a.AMOUNT_CHARGE>0 and   a.error_code = '0' and   a.rechvalue = r.rechvalue and   r.RECHOPTION = b.RECHOPTION and   DATE_TIME between to_date(to_char(sysdate-1,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate-1,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and   RT_DATA_PARTITION_KEY between to_date(to_char(sysdate-1,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate-1,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and   a.AMOUNT_CHARGE in (select FACE_VALUE from card_category) and ID_INSTITUTION='910'
+application.web.recharge.report.query.RecargasFallidasTotalPorCanalOpcion=select  COUNT(gsm) as CANTIDAD from    web_rech_transaction a, tbl_rechargeoption b, tbl_rechoption_nonvouchrech r where   a.channel=? and   a.error_code <> '0' and   a.rechvalue = r.rechvalue and   r.RECHOPTION = b.RECHOPTION and   DATE_TIME between to_date(to_char(sysdate-1,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate-1,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and   RT_DATA_PARTITION_KEY between to_date(to_char(sysdate-1,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and  to_date(to_char(sysdate-1,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and   a.AMOUNT_CHARGE in (select FACE_VALUE from card_category) and ID_INSTITUTION='910'
+application.web.recharge.report.query.CategoriaRecargasExitosasOpcion=select count(a.gsm), b.DESCRIPTIONRECHOPTION from web_rech_transaction a, tbl_rechargeoption b, tbl_rechoption_nonvouchrech r where a.channel=? and a.AMOUNT_CHARGE>0 and a.error_code = '0' and a.rechvalue = r.rechvalue and r.RECHOPTION = b.RECHOPTION and DATE_TIME between to_date (to_char(sysdate-1,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and     to_date(to_char(sysdate-1,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and     RT_DATA_PARTITION_KEY between to_date(to_char(sysdate-1,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and     to_date(to_char(sysdate-1,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and ID_INSTITUTION='910' and     a.AMOUNT_CHARGE in      (select FACE_VALUE from card_category) group by b.RECHOPTION, b.DESCRIPTIONRECHOPTION order by b.RECHOPTION
+application.web.recharge.report.query.CategoriaRecargasFallidasOpcion=select count(a.gsm), b.DESCRIPTIONRECHOPTION from web_rech_transaction a, tbl_rechargeoption b, tbl_rechoption_nonvouchrech r where a.channel=? and a.error_code <> '0' and a.rechvalue = r.rechvalue and r.RECHOPTION = b.RECHOPTION and DATE_TIME between to_date(to_char(sysdate-1,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and     to_date(to_char(sysdate-1,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and     RT_DATA_PARTITION_KEY between to_date(to_char(sysdate-1,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and     to_date(to_char(sysdate-1,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and ID_INSTITUTION='910' and     a.AMOUNT_CHARGE in      (select FACE_VALUE from card_category) group by b.RECHOPTION, b.DESCRIPTIONRECHOPTION order by b.RECHOPTION
+#Fin Query del servicio de Inter incorporados en Terceros
+#
+application.web.recharge.report.query.Canales=select count(gsm), a.channel as CANAL from web_rech_transaction a where DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss')  and RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') group by a.channel
+
+#
+application.web.recharge.report.query.RecargasExitosasGSM=select COUNT(distinct(gsm)) as CANTIDAD from recarga3g.web_rech_transaction where ERROR_CODE = '0' and AMOUNT_CHARGE>0 and DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and AMOUNT_CHARGE in (select FACE_VALUE from card_category)
+
+#
+application.web.recharge.report.query.RecargasExitosasTotal=select COUNT(gsm) as CANTIDAD from recarga3g.web_rech_transaction where ERROR_CODE = '0' and AMOUNT_CHARGE>0 and DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and AMOUNT_CHARGE in (select FACE_VALUE from card_category)
+
+#
+application.web.recharge.report.query.RecargasFallidasGSM=select COUNT(distinct(gsm)) as CANTIDAD from recarga3g.web_rech_transaction where ERROR_CODE <> '0' and DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss')
+
+#
+application.web.recharge.report.query.RecargasFallidasTotal=select COUNT(gsm) as CANTIDAD from recarga3g.web_rech_transaction where ERROR_CODE <> '0' and DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss')
+
+#
+application.web.recharge.report.query.RecargasExitosasGSMPorCanal=select COUNT(distinct(gsm)) as CANTIDAD from recarga3g.web_rech_transaction where CHANNEL=? and ERROR_CODE = '0' and AMOUNT_CHARGE>0 and DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and AMOUNT_CHARGE in (select FACE_VALUE from card_category)
+
+#
+application.web.recharge.report.query.RecargasExitosasTotalPorCanal=select COUNT(gsm) as CANTIDAD from recarga3g.web_rech_transaction where CHANNEL=? and ERROR_CODE = '0' and AMOUNT_CHARGE>0 and DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and AMOUNT_CHARGE in (select FACE_VALUE from card_category)
+
+#
+application.web.recharge.report.query.RecargasFallidasGSMPorCanal=select COUNT(distinct(gsm)) as CANTIDAD from recarga3g.web_rech_transaction where CHANNEL=? and ERROR_CODE <> '0' and DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss')
+
+#
+application.web.recharge.report.query.RecargasFallidasTotalPorCanal=select COUNT(gsm) as CANTIDAD from recarga3g.web_rech_transaction where CHANNEL=? and ERROR_CODE <> '0' and DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss')
+
+
+#
+application.web.recharge.report.query.MontoTotalRecargadoCategoria=select sum(b.real_value) as CANTIDAD, b.real_value, b.benefit_type from recarga3g.web_rech_transaction a, recarga3g.card_category b where a.channel=? and a.amount_charge = b.face_value and a.ERROR_CODE = '0' and a.DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and a.RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and AMOUNT_CHARGE in (select FACE_VALUE from card_category) group by b.real_value, b.benefit_type order by b.benefit_type desc, b.real_value 
+
+#
+application.web.recharge.report.query.MontoTotalRecargado=select sum(b.real_value) as CANTIDAD from recarga3g.web_rech_transaction a, recarga3g.card_category b where a.amount_charge = b.face_value and a.ERROR_CODE = '0' and a.DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and a.RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and AMOUNT_CHARGE in (select FACE_VALUE from card_category)
+
+#
+application.web.recharge.report.query.MontoRecargadoPorCanal=select sum(b.real_value) as CANTIDAD from recarga3g.web_rech_transaction a, recarga3g.card_category b where a.channel=? and a.amount_charge = b.face_value and a.ERROR_CODE = '0' and a.DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and a.RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and AMOUNT_CHARGE in (select FACE_VALUE from card_category)
+
+#
+application.web.recharge.report.query.RecargasPorCanal=select count(gsm), a.channel from web_rech_transaction a where a.error_code = '0' and AMOUNT_CHARGE>0 and DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss')  and RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and AMOUNT_CHARGE in (select FACE_VALUE from card_category) group by a.channel
+
+#
+application.web.recharge.report.query.CategoriaRecargasExitosas=select count(gsm), NVL(b.category, 'OTROS') from web_rech_transaction a, plan_category b where a.channel=? and AMOUNT_CHARGE>0 and a.error_code = '0' and a.cos_name = b.cos_name(+) and DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and AMOUNT_CHARGE in (select FACE_VALUE from card_category) group by b.category order by b.category
+
+#
+application.web.recharge.report.query.CategoriaRecargasFallidas=select count(gsm), b.error_msg from web_rech_transaction a, error_cat b where a.channel=? and a.error_code = b.error_code and a.error_code <> '0' and DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') group by b.error_msg
+
+#
+application.web.recharge.report.query.BloqueosMontoExcedido=select count(*) as cantidad from (select sum(a.amount_charge) as monto, a.gsm from web_rech_transaction a where a.error_code = '0' and AMOUNT_CHARGE>0 and DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') group by a.gsm) a where a.monto >= AMT
+
+#
+application.web.recharge.report.query.BloqueosFallaExcedido=select count(*) as cantidad from (select a.gsm from web_rech_transaction a where a.error_code <> '0' and DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') group by a.gsm having count(a.gsm) >= FAL)
+
+#
+application.web.recharge.report.query.BloqueosMontoExcedidoPorCanal=select count(*) as cantidad from (select sum(a.amount_charge) as monto, a.gsm from web_rech_transaction a where a.channel=? and a.error_code = '0' and AMOUNT_CHARGE>0 and DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') group by a.gsm) a where a.monto >= AMT
+
+#
+application.web.recharge.report.query.BloqueosFallaExcedidoPorCanal=select count(*) as cantidad from (select a.gsm from web_rech_transaction a where a.channel=? and a.error_code <> '0' and DATE_TIME between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') and RT_DATA_PARTITION_KEY between to_date(to_char(sysdate,'yyyymmdd') || ' 00:00:00', 'yyyymmdd hh24:mi:ss') and to_date(to_char(sysdate,'yyyymmdd') || ' 23:59:59', 'yyyymmdd hh24:mi:ss') group by a.gsm having count(a.gsm) >= FAL)
+
+
+#Parametro Maximo de Recargas Fallidas
+application.web.recharge.report.failattempts=5
+
+#Parametro Maximo de Recargas Exitosas 
+application.web.recharge.report.successamount=300

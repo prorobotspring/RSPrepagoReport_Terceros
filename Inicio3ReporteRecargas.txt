@@ -1,0 +1,23 @@
+			<tr bgcolor="White">
+				<td><b>Total recargado (Bs.)</b></td>
+				<td align="right" width="60px"><b>${TotalTarjetas}</b></td>
+				<td align="right" width="60px"><b>${MontoRecargado}</b></td>				
+				<td align="right" width="60px"><b>${PorcentajeTotalC}%</b></td>
+			</tr>
+		</table>
+		<br />
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<table border="1" align="center" cellpadding="1" cellspacing="1"
+			style="border-collapse: collapse;" width="500px">
+			<tr>
+				<th colspan="3" bgcolor="#D50032" style="color: White">Categorías
+				de recargas exitosas</th>
+			</tr>
+			<tr style="color: White">
+				<th bgcolor="#EEEEEE"></th>
+				<th bgcolor="#D50032" width="60px">Total</th>
+				<th bgcolor="#D50032" width="60px">%</th>
+			</tr>
